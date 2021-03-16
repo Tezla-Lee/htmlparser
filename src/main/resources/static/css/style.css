@@ -1,0 +1,53 @@
+.container {
+    width: 280px;
+    margin: 250px auto;
+}
+
+.form-wrap {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 150px;
+}
+
+.select {
+    width: 158px;
+}
+
+.button {
+    float: right;
+    margin-right: 5px;
+}
+
+.result-wrap {
+    margin-top: 25px;
+}
+
+.result-wrap.div {
+    margin-top: 10px;
+    line-height: 100px;
+}
+
+.result {
+    display: inline-block;
+    width: 100%;
+    overflow-wrap: break-word;
+    margin-bottom: 20px;
+}
+
+.io {
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
