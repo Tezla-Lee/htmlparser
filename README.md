@@ -7,9 +7,9 @@
 - 스프링 어플리케이션 실행
 - 인덱스 페이지 이동
   - 로컬 환경: http://localhost:8080/
- ![view](img/view.png)
+ ![view](img/view.png){: width="300"}
 - URL 입력
 - Type 선택
 - 출력 단위 묶음 입력 (2,147,483,647 이하의 자연수)
 - 출력 버튼 클릭
-![run](img/view2.png)
+  ![run](img/view2.png){: width="300"}
