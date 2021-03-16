@@ -34,12 +34,14 @@ public class HtmlService {
         try {
             doc = Jsoup.connect(url).get();
         } catch (Exception e) {
-            return new ParseResultDto("잘못된 url 입니다.");
+            return new ParseResultDto("잘못된 url 입니다. url 전체를 입력해주세요.");
         }
 
         int[][] letters;
 
-        if (type.equals("exclude tag")) {
+        if (type == null) {
+            return new ParseResultDto("Type을 선택해주세요.");
+        } else if (type.equals("exclude tag")) {
             letters = parseEngAndNumbers(doc.text());
         } else if (type.equals("all")) {
             letters = parseEngAndNumbers(doc.toString());
