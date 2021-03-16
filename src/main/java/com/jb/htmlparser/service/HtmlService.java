@@ -17,6 +17,24 @@ public class HtmlService {
         return parseResultDto;
     }
 
+    public int[][] parseEngAndNumbers(String doc) {
+        int[] capitalLetters = new int[26];
+        int[] smallLetters = new int[26];
+        int[] numbers = new int[10];
+
+        for (char c : doc.toCharArray()) {
+            if (isCapitalLetter(c)) {
+                capitalLetters[c - 'A']++;
+            } else if (isSmallLetter(c)) {
+                smallLetters[c - 'a']++;
+            } else if (isNumber(c)) {
+                numbers[c - '0']++;
+            }
+        }
+
+        return new int[][]{smallLetters, capitalLetters, numbers};
+    }
+
     public boolean isCapitalLetter(char c) {
         return c >= 65 && c <= 90;
     }
