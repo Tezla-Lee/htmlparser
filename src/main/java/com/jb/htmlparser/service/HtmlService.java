@@ -14,7 +14,41 @@ public class HtmlService {
         ParseResultDto parseResultDto = new ParseResultDto();
         Document doc = Jsoup.connect(url).get();
 
+        int[][] letters = parseEngAndNumbers(doc.text());
+
+        parseResultDto.setQuotient(sortNumber(letters[2]));
+
+        parseResultDto.setRemainder(sortEnglish(letters[0], letters[1]));
+
         return parseResultDto;
+    }
+
+    public String sortNumber(int[] numbers) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < numbers[i]; j++) {
+                sb.append((char) (i + '0'));
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public String sortEnglish(int[] capital, int[] small) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < capital[i]; j++) {
+                sb.append((char) (i + 'A'));
+            }
+
+            for (int j = 0; j < small[i]; j++) {
+                sb.append((char) (i + 'a'));
+            }
+        }
+
+        return sb.toString();
     }
 
     public int[][] parseEngAndNumbers(String doc) {
@@ -32,7 +66,7 @@ public class HtmlService {
             }
         }
 
-        return new int[][]{smallLetters, capitalLetters, numbers};
+        return new int[][]{capitalLetters, smallLetters, numbers};
     }
 
     public boolean isCapitalLetter(char c) {
