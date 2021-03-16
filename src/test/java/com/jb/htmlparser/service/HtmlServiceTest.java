@@ -39,7 +39,7 @@ class HtmlServiceTest {
     void getResult3() {
         ParseResultDto result = htmlService.getResult("abc", "exclude tag", "1");
 
-        assertThat(result.getErrorMessage()).isEqualTo("잘못된 url 입니다.");
+        assertThat(result.getErrorMessage()).isEqualTo("잘못된 url 입니다. url 전체를 입력해주세요.");
         assertThat(result.getQuotient()).isEqualTo(null);
         assertThat(result.getRemainder()).isEqualTo(null);
     }
