@@ -20,6 +20,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     runtimeOnly 'com.h2database:h2'
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
 }
 
 test {
