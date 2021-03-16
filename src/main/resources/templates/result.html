@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="form-wrap">
+        <div class="io">[ 입력 ]</div>
+        <form th:action="@{/result}" method="get">
+            <div>
+                <label class="label">URL</label>
+                <input th:value="${url}" name="url" type="text" class="input"/>
+            </div>
+            <div>
+                <label class="label">Type</label>
+                <span th:if="${type} == 'all'">
+                    <select name="type" class="select">
+                        <option value="exclude tag">HTML 태그 제외</option>
+                        <option selected="selected" value="all">Text 전체</option>
+                    </select>
+                </span>
+                <span th:unless="${type} == 'all'">
+                    <select name="type" class="select">
+                        <option selected="selected" value="exclude tag">HTML 태그 제외</option>
+                        <option value="all">Text 전체</option>
+                    </select>
+                </span>
+            </div>
+            <div>
+                <label class="label">출력 단위 묶음</label>
+                <input th:value="${divisor}" name="divisor" type="text" class="input"/>
+            </div>
+            <button class="button">출력</button>
+        </form>
+        <div class="result-wrap">
+            <div class="io">[ 출력 ]</div>
+
+            <div th:if="${result != null}and${result.getErrorMessage() != null}">
+                <div class="error" th:text="${result.getErrorMessage()}"></div>
+            </div>
+
+            <div th:if="${result != null}">
+                <span th:if="${result.getErrorMessage() == null}">몫:</span>
+                <div class="result" th:if="${result != null}" th:text="${result.getQuotient()}"></div>
+            </div>
+
+            <div th:if="${result != null}">
+                <span th:if="${result.getErrorMessage() == null}">나머지:</span>
+                <div class="result" th:if="${result != null}" th:text="${result.getRemainder()}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
