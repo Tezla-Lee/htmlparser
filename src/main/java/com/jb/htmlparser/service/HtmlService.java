@@ -16,11 +16,27 @@ public class HtmlService {
 
         int[][] letters = parseEngAndNumbers(doc.text());
 
-        parseResultDto.setQuotient(sortNumber(letters[2]));
-
-        parseResultDto.setRemainder(sortEnglish(letters[0], letters[1]));
+        parseResultDto.setQuotient(combineNumberAndEnglish(sortNumber(letters[2]), sortEnglish(letters[0], letters[1])));
 
         return parseResultDto;
+    }
+
+    public String combineNumberAndEnglish(String english, String number) {
+        StringBuilder sb = new StringBuilder();
+        char[] eng = english.toCharArray();
+        char[] numbers = number.toCharArray();
+
+        for (int i = 0; i < Math.min(eng.length, numbers.length); i++) {
+            sb.append(eng[i]).append(numbers[i]);
+        }
+
+        if (english.length() > number.length()) {
+            sb.append(english.substring(number.length()));
+        } else {
+            sb.append(number.substring(english.length()));
+        }
+
+        return sb.toString();
     }
 
     public String sortNumber(int[] numbers) {
