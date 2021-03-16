@@ -6,7 +6,7 @@
 ## 사용 방법
 - 스프링 어플리케이션 실행
 - 인덱스 페이지 이동
-  - 로컬환경: (http://localhost:8080/)[http://localhost:8080/]
+  - 로컬 환경: http://localhost:8080/
  ![view](img/view.png)
 - URL 입력
 - Type 선택
