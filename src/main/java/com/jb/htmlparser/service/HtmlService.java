@@ -25,7 +25,7 @@ public class HtmlService {
             }
         }
 
-        if (div < 0) {
+        if (div < 1) {
             return new ParseResultDto("출력 단위 묶음은 2,147,483,647 이하의 자연수이어야 합니다.");
         }
 
