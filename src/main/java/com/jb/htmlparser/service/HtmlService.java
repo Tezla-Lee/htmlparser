@@ -5,18 +5,61 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
 @Service
 public class HtmlService {
 
-    public ParseResultDto getResult(String url, String type, Integer divisor) throws IOException {
+    public ParseResultDto getResult(String url, String type, String divisor) {
+        if (url == null || url.equals("")) {
+            return new ParseResultDto("url을 입력해 주세요.");
+        }
+
+        int div;
+
+        if (divisor == null || divisor.equals("")) {
+            return new ParseResultDto("출력 단위 묶음을 입력해 주세요.");
+        } else {
+            try {
+                div = Integer.parseInt(divisor);
+            } catch (NumberFormatException e) {
+                return new ParseResultDto("출력 단위 묶음은 2,147,483,647 이하의 자연수이어야 합니다.");
+            }
+        }
+
+        if (div < 0) {
+            return new ParseResultDto("출력 단위 묶음은 2,147,483,647 이하의 자연수이어야 합니다.");
+        }
+
+        Document doc;
+
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (Exception e) {
+            return new ParseResultDto("잘못된 url 입니다.");
+        }
+
+        int[][] letters;
+
+        if (type.equals("exclude tag")) {
+            letters = parseEngAndNumbers(doc.text());
+        } else if (type.equals("all")) {
+            letters = parseEngAndNumbers(doc.toString());
+        } else {
+            return new ParseResultDto("잘못된 Type 입니다.");
+        }
+
+        return divide(combineNumberAndEnglish(sortNumber(letters[2]), sortEnglish(letters[0], letters[1])), div);
+    }
+
+    public ParseResultDto divide(String s, int divisor) {
         ParseResultDto parseResultDto = new ParseResultDto();
-        Document doc = Jsoup.connect(url).get();
 
-        int[][] letters = parseEngAndNumbers(doc.text());
+        int remainder = s.length() % divisor;
 
-        parseResultDto.setQuotient(combineNumberAndEnglish(sortNumber(letters[2]), sortEnglish(letters[0], letters[1])));
+        parseResultDto.setQuotient(s.substring(0, s.length() - remainder));
+
+        if (remainder > 0) {
+            parseResultDto.setRemainder(s.substring(s.length() - remainder));
+        }
 
         return parseResultDto;
     }
